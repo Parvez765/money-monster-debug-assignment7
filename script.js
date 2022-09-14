@@ -2,6 +2,8 @@ const display = document.getElementById("display");
 const question = document.getElementById("question");
 const startBtn = document.getElementById("starts");
 const countdownOverlay = document.getElementById("countdown");
+
+
 const resultModal = document.getElementById("result");
 const modalBackground = document.getElementById("modal-background");
 
@@ -9,6 +11,7 @@ const modalBackground = document.getElementById("modal-background");
 let userText = "";
 let errorCount = 0;
 let startTime;
+console.log(startTime)
 let questionText = "";
 
 // Load and display question
@@ -91,7 +94,7 @@ const gameOver = () => {
   startTime = null;
   errorCount = 0;
   userText = "";
-  display.classList.add("inactive");
+  display.classList.add("active");
 };
 
 const closeModal = () => {
@@ -101,24 +104,26 @@ const closeModal = () => {
 
 const start = () => {
   // If already started, do not start again
-  if (startTime) return;
-
-  let count = 3;
+  
   countdownOverlay.style.display = "flex";
-
+  
+  if (startTime) return;
+  
+let count = 3;
   const startCountdown = setInterval(() => {
+    // console.log(startCountdown)
     countdownOverlay.innerHTML = `<h1>${count}</h1>`;
 
     // finished timer
     if (count == 0) {
-      // -------------- START TYPING -----------------
+     // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
-      countdownOverlay.style.display = "flex";
+      countdownOverlay.style.display = "none";
       display.classList.remove("inactive");
-
       clearInterval(startCountdown);
       startTime = new Date().getTime();
-    }
+  }
+    // console.log(count)
     count--;
   }, 1000);
 };
@@ -132,8 +137,8 @@ displayHistory();
 // Show typing time spent
 setInterval(() => {
   const currentTime = new Date().getTime();
-  const timeSpent = (currentTime - startTime) / 1000;
-
-
+  // console.log(new Date().getTime())
+  const timeSpent = (currentTime - startTime);
+  // console.log(timeSpent)
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
 }, 1000);
