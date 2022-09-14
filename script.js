@@ -11,7 +11,7 @@ const modalBackground = document.getElementById("modal-background");
 let userText = "";
 let errorCount = 0;
 let startTime;
-console.log(startTime)
+// console.log(startTime)
 let questionText = "";
 
 // Load and display question
@@ -89,6 +89,7 @@ const gameOver = () => {
   `;
 
   addHistory(questionText, timeTaken, errorCount);
+  console.log(errorCount)
 
   // restart everything
   startTime = null;
@@ -105,9 +106,10 @@ const closeModal = () => {
 const start = () => {
   // If already started, do not start again
   
+  if (startTime) return;
+  
   countdownOverlay.style.display = "flex";
   
-  if (startTime) return;
   
 let count = 3;
   const startCountdown = setInterval(() => {
@@ -115,7 +117,7 @@ let count = 3;
     countdownOverlay.innerHTML = `<h1>${count}</h1>`;
 
     // finished timer
-    if (count == 0) {
+    if (count < 1) {
      // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
       countdownOverlay.style.display = "none";
@@ -139,7 +141,7 @@ setInterval(() => {
   const currentTime = new Date().getTime();
   // console.log(new Date().getTime())
   const timeSpent = parseInt((currentTime - startTime) / 1000);
-  console.log(typeof timeSpent, timeSpent)
+  // console.log(typeof timeSpent, timeSpent)
   
  
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
