@@ -122,7 +122,7 @@ let count = 3;
       display.classList.remove("inactive");
       clearInterval(startCountdown);
       startTime = new Date().getTime();
-  }
+    }
     // console.log(count)
     count--;
   }, 1000);
@@ -138,7 +138,9 @@ displayHistory();
 setInterval(() => {
   const currentTime = new Date().getTime();
   // console.log(new Date().getTime())
-  const timeSpent = (currentTime - startTime);
-  // console.log(timeSpent)
+  const timeSpent = parseInt((currentTime - startTime) / 1000);
+  console.log(typeof timeSpent, timeSpent)
+  
+ 
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
 }, 1000);
